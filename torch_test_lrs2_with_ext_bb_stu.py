@@ -308,13 +308,13 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Code to test VocaLiST: the lip-sync detector on LRS2')
     parser.add_argument("--data_root", help="Root folder of the preprocessed LRS2 dataset",
                         default="/work/ntuvictor98/lip-sync/LRS2_wav2lip/main/")
-    parser.add_argument('--cp', help='Resumed from this checkpoint',
+    parser.add_argument('--checkpoint_path', help='Resumed from this checkpoint',
                         default="/work/ntuvictor98/lip-sync/vocalist/experiments/vocalist_5f_lrs2_kd_baseline_ext_bb_T5/Best.pth",
                         type=str)
 
     args = parser.parse_args()
 
-    base_path = args.cp[:-9]
+    base_path = args.checkpoint_path[:-9]
     log_savepath = os.path.join(base_path, 'eval_result.log')
     logger = get_logger(log_savepath)
 
@@ -335,7 +335,7 @@ if __name__ == "__main__":
 
     cvresize = cvtransforms.Resize([hparams.img_size, hparams.img_size])
 
-    checkpoint_path = args.cp
+    checkpoint_path = args.checkpoint_path
     # Dataset and Dataloader setup
     test_dataset = Dataset('test')
     test_data_loader = data_utils.DataLoader(
