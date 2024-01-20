@@ -1,4 +1,6 @@
-_layer_select_exp_stuv2_200_TransDistil_all_T1_alpha1_combine_f3_av4_va1_T25_save_every_epoch/*
+__pycache__/*
 distiller_zoo/__pycache__/*
+experiments/*
 models/__pycache__/*
 models/conformer/__pycache__/*
+pretrained/*.pth

@@ -1,0 +1,8 @@
+[2024-01-21 00:02:51,856][test_stu.py][line:317][INFO] The log path: pretrained/eval_result.log
+[2024-01-21 00:02:51,893][test_stu.py][line:320][INFO] use_cuda: True
+[2024-01-21 00:02:52,183][test_stu.py][line:344][INFO] total trainable params 13.280961
+[2024-01-21 00:33:49,255][test_stu.py][line:278][INFO] [SyncNet  13.6 M] K5: 75.8, K7: 82.3, K9: 87.6, K11: 91.8, K13: 94.5, K15: 96.1
+[2024-01-21 00:33:49,256][test_stu.py][line:279][INFO] [PM       13.6 M] K5: 88.1, K7: 93.8, K9: 96.4, K11: 97.9, K13: 98.7, K15: 99.1
+[2024-01-21 00:33:49,256][test_stu.py][line:280][INFO] [AVST     42.4 M] K5: 92.0, K7: 95.5, K9: 97.7, K11: 98.8, K13: 99.3, K15: 99.6
+[2024-01-21 00:33:49,256][test_stu.py][line:281][INFO] [VocaLiST 80.1 M] K5: 92.8, K7: 96.7, K9: 98.4, K11: 99.3, K13: 99.6, K15: 99.8
+[2024-01-21 00:33:49,256][test_stu.py][line:282][INFO] [Our]             K5:0.9146,K7:0.9574,K9:0.9799,K11:0.9895,K13:0.9946,K15:0.9968

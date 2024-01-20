@@ -10,7 +10,8 @@ class SyncTransformer(nn.Module):
         super(SyncTransformer, self).__init__()
         self.d_model = d_model
         # layers = [32, 64, 128, 256, 512]
-        layers = [16, 32, 64, 128, 256]
+        # layers = [16, 32, 64, 128, 256]
+        layers = [16, 32, 64, 128, 200]
         self.vid_prenet = nn.Sequential(
             Conv3d(3, layers[0], kernel_size=7, stride=1, padding=3),
 
@@ -153,7 +154,8 @@ class SyncTransformer(nn.Module):
 
 # Test Model
 if __name__ == "__main__":
-    model = SyncTransformer(d_model=256)
+    # model = SyncTransformer(d_model=256)
+    model = SyncTransformer(d_model=200)
 
     # Total trainable params 7.75 M
     # vid_prenet trainable params 4.85 M

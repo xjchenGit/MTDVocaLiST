@@ -9,8 +9,6 @@ class SyncTransformer(nn.Module):
     def __init__(self, d_model=512):
         super(SyncTransformer, self).__init__()
         self.d_model = d_model
-        # layers = [32, 64, 128, 256, 512]
-        # layers = [16, 32, 64, 128, 256]
         layers = [16, 32, 64, 128, 200]
         self.vid_prenet = nn.Sequential(
             Conv3d(3, layers[0], kernel_size=7, stride=1, padding=3),
@@ -99,7 +97,6 @@ class SyncTransformer(nn.Module):
         vid_embedding = self.vid_prenet(frame_seq.view(B,-1,3,48,96).permute(0,2,3,4,1).contiguous())
         aud_embedding = self.aud_prenet(mel_seq)
         self.feature_list['CNN_feature'] = {'aud': aud_embedding, 'vis': vid_embedding}
-        # print(f"[layer 1] aud_embedding: {aud_embedding.shape}, vid_embedding: {vid_embedding.shape}")
 
         """  Output:
         aud_embedding: torch.Size([4, 512, 80])
@@ -107,16 +104,13 @@ class SyncTransformer(nn.Module):
         """
         vid_embedding = vid_embedding.squeeze(2).squeeze(2)
         aud_embedding = aud_embedding.squeeze(2)
-        # print(f"[layer 2] aud_embedding: {aud_embedding.shape}, vid_embedding: {vid_embedding.shape}")
 
         """ Output:
         aud_embedding: torch.Size([80, 4, 512])
         vid_embedding: torch.Size([25, 4, 512])
         """
-        # print(f"vid_embedding: {vid_embedding.shape}")
         vid_embedding = vid_embedding.permute(2, 0, 1).contiguous()
         aud_embedding = aud_embedding.permute(2, 0, 1).contiguous()
-        # print(f"[layer 3] aud_embedding: {aud_embedding.shape}, vid_embedding: {vid_embedding.shape}")
         
         """ Output:
         av_embedding: torch.Size([80, 4, 512])
@@ -127,10 +121,6 @@ class SyncTransformer(nn.Module):
         self.feature_list['AV_Trans'] = {'av_emb': av_embedding, 'va_emb': va_embedding, 'av_qk': av_qk, 'va_qk': va_qk, 
                                         'av_q_norm': av_q_norm, 'va_q_norm': va_q_norm, 'av_k': av_k, 'va_k': va_k,
                                         'av_v_norm': av_v_norm, 'va_v_norm': va_v_norm, 'av_v': av_v, 'va_v': va_v}
-        # print(f"[layer 4] av_embedding: {av_embedding.shape}, va_embedding: {va_embedding.shape}")
-
-        # cro_vv = torch.bmm(av_v, va_v.transpose(1, 2))
-        # cro_vv = F.softmax(cro_vv.float(), dim=-1).type_as(cro_vv)
 
         """ Output 
         tranformer_out: torch.Size([80, 4, 512])
@@ -138,10 +128,8 @@ class SyncTransformer(nn.Module):
         tranformer_out, men_qk, mem_q_norm, mem_k, men_v_norm, men_v = self.mem_transformer(av_embedding, va_embedding, va_embedding)
         self.feature_list['Fus_Trans'] = {'mem_emb': tranformer_out, 'mem_qk': men_qk, 'mem_q_norm': mem_q_norm, 'mem_k': mem_k,
                                         'mem_v_norm': men_v_norm, 'men_v': men_v}
-        # men_vv = torch.bmm(men_v_norm, men_v.transpose(1, 2))
-        # men_vv = F.softmax(men_vv.float(), dim=-1).type_as(men_vv)
+
         t = av_embedding.shape[0]
-        # print(f"[layer 5] tranformer_out: {tranformer_out.shape}, t: {t}")
 
         """ 
         out: torch.Size([4, 512]) 

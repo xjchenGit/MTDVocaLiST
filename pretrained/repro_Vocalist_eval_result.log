@@ -1,0 +1,8 @@
+[2022-12-26 09:35:38,821][torch_test_lrs2_Official.py][line:322][INFO] The log path: /work/ntuvictor98/lip-sync/vocalist/experiments/vocalist_5f_lrs2_repro_pt_offical/eval_result.log
+[2022-12-26 09:35:38,821][torch_test_lrs2_Official.py][line:326][INFO] use_cuda: True
+[2022-12-26 09:35:45,791][torch_test_lrs2_Official.py][line:351][INFO] total trainable params 80.106561
+[2022-12-26 11:02:32,981][torch_test_lrs2_Official.py][line:282][INFO] [SyncNet  13.6 M] K5: 75.8, K7: 82.3, K9: 87.6, K11: 91.8, K13: 94.5, K15: 96.1
+[2022-12-26 11:02:32,982][torch_test_lrs2_Official.py][line:283][INFO] [PM       13.6 M] K5: 88.1, K7: 93.8, K9: 96.4, K11: 97.9, K13: 98.7, K15: 99.1
+[2022-12-26 11:02:32,982][torch_test_lrs2_Official.py][line:284][INFO] [AVST     42.4 M] K5: 92.0, K7: 95.5, K9: 97.7, K11: 98.8, K13: 99.3, K15: 99.6
+[2022-12-26 11:02:32,982][torch_test_lrs2_Official.py][line:285][INFO] [VocaLiST 80.1 M] K5: 92.8, K7: 96.7, K9: 98.4, K11: 99.3, K13: 99.6, K15: 99.8
+[2022-12-26 11:02:32,982][torch_test_lrs2_Official.py][line:286][INFO] [Our]             K5:0.9244,K7:0.9652,K9:0.9827,K11:0.9913,K13:0.9953,K15:0.9976

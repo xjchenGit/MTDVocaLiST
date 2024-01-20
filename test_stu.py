@@ -1,28 +1,33 @@
 ##########################################################################################
 # Adapted from: https://github.com/joonson/syncnet_python/blob/master/SyncNetInstance.py #
 ##########################################################################################
-from os.path import dirname, join, basename, isfile
-from tqdm import tqdm
-# from models.model import SyncTransformer
-# from models.student_v2 import SyncTransformer as stu_SyncTransformer
-from models.student_thin_200 import SyncTransformer as stu_SyncTransformer
-import torch
+import argparse
 import math
+import os
+import random
+from glob import glob
+from os.path import basename, dirname, isfile, join
+
+import numpy as np
+import torch
+import torch.multiprocessing
+import torchaudio
+import torchvision
+from natsort import natsorted
 from torch import nn
 from torch.utils import data as data_utils
-import numpy as np
-import torchaudio, torchvision
 from torchaudio.transforms import MelScale
 from torchvision import transforms as cvtransforms
-from glob import glob
-import os, random, cv2, argparse
-from hparams import hparams, get_image_list
-from natsort import natsorted
-import torch.multiprocessing
+from tqdm import tqdm
+
+from hparams import get_image_list, hparams
+from models.student_thin_200 import SyncTransformer as stu_SyncTransformer
+
 torch.multiprocessing.set_sharing_strategy('file_system')
 
 ### logging
 from utils import get_logger
+
 
 class Dataset(object):
     def __init__(self, split):
@@ -170,8 +175,6 @@ def eval_model(test_data_loader, device, model):
             # K=5
             """ Shape: [22, 31] """
             dist_tensor_k5 = torch.stack(dists)
-            # print("-"*5)
-            # print(f"dist_tensor_k5: {dist_tensor_k5.shape}")
             offsets_k5 = hparams.v_shift - torch.argmax(dist_tensor_k5, dim=1)
             cur_num_correct_pred_k5 = len(torch.where(offsets_k5 == -1)[0]) + len(torch.where(offsets_k5 == 0)[0]) + len(
                 torch.where(offsets_k5 == 1)[0])
@@ -189,16 +192,9 @@ def eval_model(test_data_loader, device, model):
             dist_tensor_k7: torch.Size([22, 31])
             """
             dist_tensor_k7 = (dist_tensor_k5[1:-1] + dist_tensor_k5[2:] + dist_tensor_k5[:-2]) / 3  # inappropriate to average over 0,0,20 for example
-            # print(f"dist_tensor_k7: {dist_tensor_k7.shape}")
-            # print(f"dist_tensor_k5[1:-1]: {dist_tensor_k5[1:-1].shape}")
-            # print(f"dist_tensor_k5[2:]: {dist_tensor_k5[2:].shape}")
-            # print(f"dist_tensor_k5[:-2]: {dist_tensor_k5[:-2].shape}")
             dk7_m1 = torch.mean(dist_tensor_k5[:2], dim=0).unsqueeze(0)
             dk7_p1 = torch.mean(dist_tensor_k5[-2:], dim=0).unsqueeze(0)
             dist_tensor_k7 = torch.cat([dk7_m1, dist_tensor_k7, dk7_p1], dim=0)
-            # print(f"dk7_p1: {dk7_p1.shape}")
-            # print(f"dk7_m1: {dk7_m1.shape}")
-            # print(f"dist_tensor_k7: {dist_tensor_k7.shape}")
             offsets_k7 = hparams.v_shift - torch.argmax(dist_tensor_k7, dim=1)
             cur_num_correct_pred_k7 = len(torch.where(offsets_k7 == -1)[0]) + len(torch.where(offsets_k7 == 0)[0]) + len(torch.where(offsets_k7 == 1)[0])
             samplewise_acc_k7.append(cur_num_correct_pred_k7 / len(offsets_k7))
@@ -314,12 +310,11 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    base_path = args.checkpoint_path[:-9]
+    base_path = os.path.dirname(args.checkpoint_path)
     log_savepath = os.path.join(base_path, 'eval_result.log')
     logger = get_logger(log_savepath)
 
     logger.info(f"The log path: {log_savepath}")
-    
 
     use_cuda = torch.cuda.is_available()
     logger.info('use_cuda: {}'.format(use_cuda))
