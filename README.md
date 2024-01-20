@@ -6,7 +6,7 @@ We proposed an lightweight audio-visual synchronization (AVS)model **[MTDVocaLiS
 There are 2 datasets involved in this work: i) The AV speech dataset of LRS2, and ii) the AV singing voice dataset of Acappella. The LRS2 dataset can be requested for download [here](https://www.robots.ox.ac.uk/~vgg/data/lip_reading/lrs2.html). All the models considered in this work operate on audios sampled at 16kHz and videos with 25fps. The preprocessing steps are the same as [Wav2Lip](https://github.com/Rudrabha/Wav2Lip/blob/master/preprocess.py). The objective of the preprocessing step is to obtain the cropped RGB face frames of size 3x96x96 in the .jpg format and audios of 16kHz sampling rate for each of the video samples in respective datasets.
 
 ## Leverage pre-trained MTDVocaLiST only
-
+You can download the pre-trained MTDVocaLiST from [here](https://github.com/xjchenGit/MTDVocaLiST/releases/download/v1.0/pure_MTDVocaLiST.pth).
 ```python
 import torch
 from models.student_thin_200_all import SyncTransformer
