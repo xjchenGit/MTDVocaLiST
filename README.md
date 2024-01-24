@@ -1,5 +1,5 @@
 # MTDVocaLiST
-We proposed a lightweight audio-visual synchronization (AVS)model **[MTDVocaLiST](https://arxiv.org/abs/2210.15563)**. MTDVocaLiST reduces the model size of **[VocaLiST](https://github.com/vskadandale/vocalist)** by 83.52%, yet still maintaining similar performance. For more details about VocaLiST, please visit its [project webpage](https://ipcv.github.io/VocaLiST/).
+We proposed a lightweight audio-visual synchronization (AVS)model **[MTDVocaLiST](https://arxiv.org/abs/2210.15563)**. MTDVocaLiST reduces the model size of **[VocaLiST](https://github.com/vskadandale/vocalist)** by 83.52%, yet still maintaining similar performance. For more details about VocaLiST, please visit its [[project webpage]](https://ipcv.github.io/VocaLiST/).
 Audio-visual synchronization aims to determine whether the mouth movements and speech in the video are synchronized. This repository is the official repository for the paper
 [Multimodal Transformer Distillation for Audio-Visual Synchronization](https://arxiv.org/abs/2210.15563). The paper has been accepted by ICASSP 2024.
 
