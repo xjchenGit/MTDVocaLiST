@@ -3,6 +3,8 @@ We proposed a lightweight audio-visual synchronization (AVS)model **[MTDVocaLiST
 Audio-visual synchronization aims to determine whether the mouth movements and speech in the video are synchronized. This repository is the official repository for the paper
 [Multimodal Transformer Distillation for Audio-Visual Synchronization](https://arxiv.org/abs/2210.15563). The paper has been accepted by ICASSP 2024.
 
+![](Vocalist_Illustration.png)
+
 ## Datasets and preprocessing
 There are 2 datasets involved in this work: i) The AV speech dataset of LRS2, and ii) the AV singing voice dataset of Acappella. The LRS2 dataset can be requested for download [here](https://www.robots.ox.ac.uk/~vgg/data/lip_reading/lrs2.html). All the models in this work operate on audios sampled at 16kHz and videos with 25fps. The preprocessing steps are the same as [Wav2Lip](https://github.com/Rudrabha/Wav2Lip/blob/master/preprocess.py). The preprocessing step aims to obtain the cropped RGB face frames of size 3x96x96 in the .jpg format and audios of 16kHz sampling rate for each of the video samples in respective datasets.
 
