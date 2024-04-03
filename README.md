@@ -43,11 +43,15 @@ python3 test_stu.py --data_root /path/to/lip-sync/LRS2_wav2lip/main/ --checkpoin
 ## Citation
 If you find our work useful, please consider cite
 ```
-@article{chen2022multimodal,
-  title={Multimodal Transformer Distillation for Audio-Visual Synchronization},
-  author={Chen, Xuanjun and Wu, Haibin and Wang, Chung-Che and Lee, Hung-yi and Jang, Jyh-Shing Roger},
-  journal={arXiv preprint arXiv:2210.15563},
-  year={2022}
+@INPROCEEDINGS{10446372,
+  author={Chen, Xuanjun and Wu, Haibin and Wang, Chung-Che and Lee, Hung-Yi and Jang, Jyh-Shing Roger},
+  booktitle={ICASSP 2024 - 2024 IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP)}, 
+  title={Multimodal Transformer Distillation for Audio-Visual Synchronization}, 
+  year={2024},
+  volume={},
+  number={},
+  pages={7755-7759},
+  doi={10.1109/ICASSP48485.2024.10446372}
 }
 
 @inproceedings{kadandale2022vocalist,
